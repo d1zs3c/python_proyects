@@ -15,6 +15,14 @@ def generate_problem():
     answer = eval(operation)
     return operation, answer
 
+try:
+    with open("records.txt", "r") as file:
+        content = file.read()
+        print("Current scores:\n" + content)
+except FileNotFoundError:
+    print("There are no previous records.")
+
+username = input("Type your username: ")
 input("Press enter to start!")
 print ("----------------------")
 
@@ -28,7 +36,14 @@ for i in range(TOTAL_OPERATIONS):
             break
         else:
             trys += 1
+            
 end_time = time.time()
+
 total_time = end_time - start_time
+decimals = "{:.2f}".format(total_time)
+
+with open("records.txt", "a") as file:
+    file.write(f"User:{username}-{decimals}sec-{trys}trys\n")
+
 print ("----------------------")
-print ("You finished in", total_time, "seconds", "with", trys, "try´s failed")
+print ("You finished in", decimals, "seconds", "with", trys, "try´s failed")
